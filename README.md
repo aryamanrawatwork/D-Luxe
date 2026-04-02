@@ -1,4 +1,3 @@
-# D-Luxe
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -99,13 +98,12 @@ nav {
   overflow: hidden; border: 1px solid var(--border);
   touch-action: pan-y; /* Allows scrolling page but capturing horizontal swipe */
 }
-.slider-img { width: 100%; height: 100%; object-fit: cover; position: absolute; }
-.slider-after { clip-path: inset(0 50% 0 0); width: 100%; height: 100%; background: #222 url('https://via.placeholder.com/800x1000/121212/c9a84c?text=AFTER+FADE') center/cover; }
-.slider-before { width: 100%; height: 100%; background: #111 url('https://via.placeholder.com/800x1000/0a0a0a/666666?text=BEFORE+CUT') center/cover; }
+.slider-after { position: absolute; inset: 0; clip-path: inset(0 50% 0 0); width: 100%; height: 100%; background: #222 center/cover; z-index: 2; }
+.slider-before { position: absolute; inset: 0; width: 100%; height: 100%; background: #111 center/cover; z-index: 1; }
 .slider-handle {
   position: absolute; top: 0; bottom: 0; left: 50%;
   width: 4px; background: var(--gold); transform: translateX(-50%);
-  pointer-events: none;
+  z-index: 3; pointer-events: none;
 }
 .slider-handle::after {
   content: '↔'; position: absolute; top: 50%; left: 50%;
@@ -190,8 +188,8 @@ nav {
   <h2 style="margin-bottom: 20px; text-align: center;">The Vault</h2>
   <p style="text-align: center; color: var(--white-dim); margin-bottom: 20px; font-size: 0.8rem;">DRAG TO COMPARE</p>
   <div class="slider-wrap" id="slider">
-    <div class="slider-before"></div>
-    <div class="slider-after" id="after-img"></div>
+    <div class="slider-before" style="background-image: url('https://via.placeholder.com/800x1000/0a0a0a/666666?text=BEFORE+CUT');"></div>
+    <div class="slider-after" id="after-img" style="background-image: url('https://via.placeholder.com/800x1000/121212/c9a84c?text=AFTER+FADE');"></div>
     <div class="slider-handle" id="handle"></div>
   </div>
 </section>
@@ -206,7 +204,7 @@ nav {
         <p style="font-size: 0.75rem; color: var(--white-dim);">Immediate Response</p>
       </div>
     </a>
-    <a href="#" class="booking-tile">
+    <a href="https://instagram.com" class="booking-tile">
         <span class="tile-icon">📸</span>
         <div>
           <strong>DM on Instagram</strong>
@@ -217,18 +215,16 @@ nav {
 </section>
 
 <div class="mobile-sticky-footer">
-    <a href="sms:+1234567890" class="sticky-btn">Book Now</a>
+    <a href="#booking" class="sticky-btn">Book Now</a>
 </div>
 
 <script>
-// TOUCH-READY SLIDER LOGIC
 const slider = document.getElementById('slider');
 const afterImg = document.getElementById('after-img');
 const handle = document.getElementById('handle');
 
 function moveSlider(e) {
     const rect = slider.getBoundingClientRect();
-    // Support both mouse and touch
     const x = (e.touches ? e.touches[0].clientX : e.clientX) - rect.left;
     const percent = Math.max(0, Math.min(100, (x / rect.width) * 100));
     
@@ -238,22 +234,8 @@ function moveSlider(e) {
 
 slider.addEventListener('mousemove', moveSlider);
 slider.addEventListener('touchmove', (e) => {
-    // Only move slider if it's a horizontal-ish movement to allow vertical scrolling
     moveSlider(e);
 }, {passive: true});
-
-// Basic auto-animate demo
-let current = 50;
-let direction = 0.2;
-function animate() {
-    if (current > 70) direction = -0.2;
-    if (current < 30) direction = 0.2;
-    current += direction;
-    afterImg.style.clipPath = `inset(0 ${100 - current}% 0 0)`;
-    handle.style.left = `${current}%`;
-    requestAnimationFrame(animate);
-}
-// animate(); // Uncomment to have it move on its own
 </script>
 
 </body>
