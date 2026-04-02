@@ -1,1 +1,260 @@
 # D-Luxe
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>D. LUXE MOBILE — Mastery in Motion</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Bebas+Neue&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --black: #0a0a0a;
+  --charcoal: #121212;
+  --gold: #c9a84c;
+  --white: #f5f0eb;
+  --white-dim: rgba(245,240,235,0.6);
+  --border: rgba(201,168,76,0.2);
+  --touch-target: 48px; /* Standard for thumbs */
+}
+
+/* 1. RESET & MOBILE PREVENTIONS */
+*,*::before,*::after { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color: transparent; }
+html { scroll-behavior: smooth; overflow-x: hidden; width: 100%; }
+body { 
+    background: var(--black); 
+    color: var(--white); 
+    font-family: 'DM Sans', sans-serif; 
+    overflow-x: hidden; 
+    width: 100%;
+    line-height: 1.6;
+}
+
+/* 2. FLUID TYPOGRAPHY */
+h1 { font-size: clamp(2.5rem, 12vw, 8rem); }
+h2 { font-size: clamp(2rem, 8vw, 5rem); }
+p { font-size: clamp(0.9rem, 2vw, 1.1rem); }
+
+/* 3. MOBILE NAVIGATION (HAMBURGER) */
+nav {
+  position: fixed; top: 0; width: 100%; z-index: 1000;
+  padding: 15px 20px;
+  display: flex; justify-content: space-between; align-items: center;
+  background: rgba(10,10,10,0.8);
+  backdrop-filter: blur(15px);
+  border-bottom: 1px solid var(--border);
+}
+.nav-logo { font-family: 'Anton', sans-serif; font-size: 1.2rem; letter-spacing: 0.1em; }
+.nav-logo span { color: var(--gold); }
+
+.mobile-menu-btn {
+  width: var(--touch-target); height: var(--touch-target);
+  display: flex; flex-direction: column; justify-content: center; align-items: flex-end; gap: 6px;
+  background: none; border: none; cursor: pointer;
+}
+.mobile-menu-btn span { width: 30px; height: 2px; background: var(--gold); transition: 0.3s; }
+.mobile-menu-btn span:nth-child(2) { width: 20px; }
+
+/* 4. HERO SECTION - MOBILE OPTIMIZED */
+#hero {
+  height: 100vh;
+  display: flex; align-items: center; justify-content: center;
+  padding: 20px; text-align: center;
+  position: relative; overflow: hidden;
+}
+.hero-content { z-index: 2; margin-top: 50px; }
+.hero-title { font-family: 'Anton', sans-serif; text-transform: uppercase; line-height: 0.9; margin-bottom: 20px; }
+.hero-sub { color: var(--white-dim); margin-bottom: 30px; max-width: 400px; margin-inline: auto; }
+
+/* 5. BUTTONS - INTERACTIVE FEEDBACK */
+.btn-primary {
+  background: var(--gold);
+  color: var(--black);
+  padding: 18px 32px;
+  text-decoration: none;
+  text-transform: uppercase;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  display: inline-block;
+  min-width: 200px;
+  transition: transform 0.1s;
+}
+.btn-primary:active { transform: scale(0.96); opacity: 0.9; }
+
+/* 6. SERVICES (MENU) - SINGLE COLUMN ON MOBILE */
+#menu { padding: 80px 20px; }
+.menu-grid { display: flex; flex-direction: column; gap: 15px; }
+.menu-card {
+  background: var(--charcoal);
+  padding: 30px;
+  border-left: 3px solid var(--gold);
+  display: flex; flex-direction: column; gap: 10px;
+}
+.menu-price { font-family: 'Anton', sans-serif; font-size: 2rem; color: var(--gold); }
+
+/* 7. GALLERY - TOUCH-READY SLIDER */
+#gallery { padding: 60px 20px; background: #000; }
+.slider-wrap {
+  position: relative; width: 100%; aspect-ratio: 4/5;
+  overflow: hidden; border: 1px solid var(--border);
+  touch-action: pan-y; /* Allows scrolling page but capturing horizontal swipe */
+}
+.slider-img { width: 100%; height: 100%; object-fit: cover; position: absolute; }
+.slider-after { clip-path: inset(0 50% 0 0); width: 100%; height: 100%; background: #222 url('https://via.placeholder.com/800x1000/121212/c9a84c?text=AFTER+FADE') center/cover; }
+.slider-before { width: 100%; height: 100%; background: #111 url('https://via.placeholder.com/800x1000/0a0a0a/666666?text=BEFORE+CUT') center/cover; }
+.slider-handle {
+  position: absolute; top: 0; bottom: 0; left: 50%;
+  width: 4px; background: var(--gold); transform: translateX(-50%);
+  pointer-events: none;
+}
+.slider-handle::after {
+  content: '↔'; position: absolute; top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  width: 40px; height: 40px; background: var(--gold);
+  border-radius: 50%; display: flex; align-items: center; justify-content: center;
+  color: #000; font-weight: bold;
+}
+
+/* 8. BOOKING TILES - THUMB ZONE */
+.booking-tiles { display: flex; flex-direction: column; gap: 12px; margin-top: 40px; }
+.booking-tile {
+  background: var(--charcoal);
+  padding: 25px;
+  display: flex; align-items: center; gap: 20px;
+  text-decoration: none; color: white;
+  border: 1px solid var(--border);
+  min-height: 80px; /* Large touch area */
+}
+.booking-tile:active { background: #1a1a1a; }
+.tile-icon { font-size: 1.5rem; }
+
+/* 9. STICKY MOBILE CTA (THE NATURAL THUMB ZONE) */
+.mobile-sticky-footer {
+  position: fixed; bottom: 0; left: 0; width: 100%;
+  padding: 15px 20px 25px; /* Extra bottom padding for "Home Bar" on iPhones */
+  background: linear-gradient(transparent, var(--black) 40%);
+  z-index: 900;
+}
+.sticky-btn {
+  width: 100%;
+  background: var(--gold);
+  color: var(--black);
+  height: 60px;
+  display: flex; align-items: center; justify-content: center;
+  text-decoration: none; font-weight: 800; text-transform: uppercase;
+  letter-spacing: 0.1em;
+  box-shadow: 0 -10px 30px rgba(0,0,0,0.5);
+}
+
+/* Hide Desktop Cursor on Mobile */
+@media (max-width: 1024px) {
+  .cursor, .cursor-ring { display: none !important; }
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo"><span>D.</span> LUXE MOBILE</div>
+  <button class="mobile-menu-btn" aria-label="Menu">
+    <span></span>
+    <span></span>
+  </button>
+</nav>
+
+<section id="hero">
+  <div class="hero-content">
+    <h1 class="hero-title">Mastery<br><span style="color:var(--gold)">In Motion.</span></h1>
+    <p class="hero-sub">Premium barbering delivered to your door. No wait times. Just elite craft.</p>
+    <a href="#booking" class="btn-primary">Secure a Slot</a>
+  </div>
+</section>
+
+<section id="menu">
+  <h2 style="margin-bottom: 30px; text-align: center;">The <span style="font-family:'Cormorant Garamond'; font-style:italic;">Menu</span></h2>
+  <div class="menu-grid">
+    <div class="menu-card">
+        <span style="font-size: 0.7rem; color: var(--gold);">SERVICE 01</span>
+        <h3>The Signature Fade</h3>
+        <p class="menu-price">$60</p>
+    </div>
+    <div class="menu-card" style="background: #1a1812; border-color: var(--gold);">
+        <span style="font-size: 0.7rem; color: var(--gold);">MOST POPULAR</span>
+        <h3>The Full Executive</h3>
+        <p class="menu-price">$90</p>
+    </div>
+  </div>
+</section>
+
+<section id="gallery">
+  <h2 style="margin-bottom: 20px; text-align: center;">The Vault</h2>
+  <p style="text-align: center; color: var(--white-dim); margin-bottom: 20px; font-size: 0.8rem;">DRAG TO COMPARE</p>
+  <div class="slider-wrap" id="slider">
+    <div class="slider-before"></div>
+    <div class="slider-after" id="after-img"></div>
+    <div class="slider-handle" id="handle"></div>
+  </div>
+</section>
+
+<section id="booking" style="padding: 80px 20px 150px;">
+  <h2 style="text-align: center;">Book Your <span style="color:var(--gold)">Session</span></h2>
+  <div class="booking-tiles">
+    <a href="sms:+1234567890" class="booking-tile">
+      <span class="tile-icon">📱</span>
+      <div>
+        <strong>Text for Availability</strong>
+        <p style="font-size: 0.75rem; color: var(--white-dim);">Immediate Response</p>
+      </div>
+    </a>
+    <a href="#" class="booking-tile">
+        <span class="tile-icon">📸</span>
+        <div>
+          <strong>DM on Instagram</strong>
+          <p style="font-size: 0.75rem; color: var(--white-dim);">@DLuxeMobile</p>
+        </div>
+      </a>
+  </div>
+</section>
+
+<div class="mobile-sticky-footer">
+    <a href="sms:+1234567890" class="sticky-btn">Book Now</a>
+</div>
+
+<script>
+// TOUCH-READY SLIDER LOGIC
+const slider = document.getElementById('slider');
+const afterImg = document.getElementById('after-img');
+const handle = document.getElementById('handle');
+
+function moveSlider(e) {
+    const rect = slider.getBoundingClientRect();
+    // Support both mouse and touch
+    const x = (e.touches ? e.touches[0].clientX : e.clientX) - rect.left;
+    const percent = Math.max(0, Math.min(100, (x / rect.width) * 100));
+    
+    afterImg.style.clipPath = `inset(0 ${100 - percent}% 0 0)`;
+    handle.style.left = `${percent}%`;
+}
+
+slider.addEventListener('mousemove', moveSlider);
+slider.addEventListener('touchmove', (e) => {
+    // Only move slider if it's a horizontal-ish movement to allow vertical scrolling
+    moveSlider(e);
+}, {passive: true});
+
+// Basic auto-animate demo
+let current = 50;
+let direction = 0.2;
+function animate() {
+    if (current > 70) direction = -0.2;
+    if (current < 30) direction = 0.2;
+    current += direction;
+    afterImg.style.clipPath = `inset(0 ${100 - current}% 0 0)`;
+    handle.style.left = `${current}%`;
+    requestAnimationFrame(animate);
+}
+// animate(); // Uncomment to have it move on its own
+</script>
+
+</body>
+</html>
